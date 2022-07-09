@@ -1,10 +1,10 @@
 # Salt State for setting up Ubuntu servers
-This a Salt implemantation of [jasonheecs/ubuntu-server-setup](https://github.com/jasonheecs/ubuntu-server-setup/blob/master/setup.sh), which is a bash script for setting up Ubuntu Servers.
+This a Salt implementation of [jasonheecs/ubuntu-server-setup](https://github.com/jasonheecs/ubuntu-server-setup/blob/master/setup.sh), which is a bash script for setting up Ubuntu Servers.
 
 THIS IS A WORK IN PROGRESS
 
 ## Lab Setup
-I am storing configuratin data inside Salt Pillar's, currently my pillar structure and content looks as follows:
+I am storing configuration data inside Salt Pillar's, currently my pillar structure and content looks as follows:
 ```
 /srv/pillar/
 ├── top.sls
