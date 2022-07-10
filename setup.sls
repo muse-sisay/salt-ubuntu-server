@@ -1,3 +1,5 @@
+{% set timezone = "America/Denver" %}
+
 "Create User":
   user.present:
     - name: {{ pillar['username'] }}
@@ -63,6 +65,9 @@
 # Setup swap space
 
 # set timezone
+"Set timezone to {{ timezone }}":
+  timezone.system:
+    - name: {{ timezone }}
 
 # install and configure NTP
 
