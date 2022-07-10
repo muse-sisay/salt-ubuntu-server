@@ -1,5 +1,5 @@
 # Salt State for setting up Ubuntu servers
-This a Salt implementation of [jasonheecs/ubuntu-server-setup](https://github.com/jasonheecs/ubuntu-server-setup/blob/master/setup.sh), which is a bash script for setting up Ubuntu Servers.
+This a Salt implementation of [jasonheecs/ubuntu-server-setup](https://github.com/jasonheecs/ubuntu-server-setup), which is a bash script for setting up Ubuntu Servers.
 
 THIS IS A WORK IN PROGRESS
 
