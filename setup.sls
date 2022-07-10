@@ -4,9 +4,8 @@
     - groups:
       - sudo
 
-# Create ~/.ssh directory
-# ~/.ssh/authorized_keys
-# copy public key
+# COPY PUBLIC KEY
+# Make sure ~/.ssh directory exists
 "Copy ssh public key":
   file.directory:
     - name: /home/{{ pillar['username'] }}/.ssh
@@ -14,6 +13,7 @@
     - group: {{ pillar['username'] }}
     - mode: 700
 
+# Make sure authorized file exists
 "Create ~/.ssh/authorized_key file":
   file.managed:
     - name: /home/{{ pillar['username'] }}/.ssh/authorized_keys
@@ -21,15 +21,39 @@
     - user: {{ pillar['username'] }}
     - group: {{ pillar['username'] }}
 
+# Copy public key to authorized_file
 "Copy public key":
   file.append:
     - name: /home/{{ pillar['username'] }}/.ssh/authorized_keys
     - text: {{ pillar['public_key'] }}
 
-# edit ssh config
-#   disable password authentication
-#   disable root login
+# SECURE SSH
+# Disable Password Authentication for all users
+"Disable Password Authentication":
+  file.replace:
+    - name: /etc/ssh/sshd_config
+    - pattern: "^PasswordAuthentication yes"
+    - repl: "PasswordAuthentication no"
+    - append_if_not_found: True
+
+# Disable root from ssh-ing
+"Disable root login":
+  file.replace:
+    - name: /etc/ssh/sshd_config
+    - pattern: "^PermitRootLogin yes"
+    - repl: "PermitRootLogin no"
+    - append_if_not_found: True
+
 #   only allow the current user to ssh 
+
+"Restart SSH Daemon":
+  service.running:
+    - name: sshd
+    - enable: True
+    - reload: True
+    - watch:
+      - file: "Disable Password Authentication"
+      - file: "Disable root login"
 
 # secure shared memory
 
